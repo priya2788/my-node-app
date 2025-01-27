@@ -24,11 +24,17 @@ phases:
       - unzip OmBbU5R.zip -d extracted_files/
       
       - echo "Build process..."
+      - VERSION=$(date +%Y%m%d%H%M%S)  # Generate version from timestamp
+      - echo "Version: $VERSION" > version.txt  # Save version to a file
+      - npm run build
+
   post_build:
     commands:
       - echo Build complete
       - echo Creating build artifacts...
       - mkdir -p extracted_files  # Create a directory to store build artifacts
+       - echo Build completed with version $VERSION
+      - cat version.txt  # Output version
 artifacts:
   files:
     - '**/*'  # Include all files in the output directory
