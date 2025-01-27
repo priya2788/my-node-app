@@ -35,14 +35,14 @@ db.getConnection((err, connection) => {
 });*/
 
 // Basic route to test the server
-app.get('/db', async (req, res) => {
+/*app.get('/db', async (req, res) => {
   try {
     const [rows, fields] = await db.promise().query('SELECT NOW() AS current_time');
     res.send(`Current database time is: ${rows[0].current_time}`);
   } catch (err) {
     res.status(500).send('Error querying the database');
   }
-});
+});*/
 
 // Route to fetch image from S3
 app.get('/:folder/:filename', async (req, res) => {
