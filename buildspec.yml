@@ -6,21 +6,29 @@
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 version: 0.2\
+\
 phases:\
   install:\
     runtime-versions:\
-      nodejs: 14\
+      nodejs: 14  # You can change this to your desired Node.js version\
     commands:\
-      - npm install\
+      - echo Installing dependencies...\
+      - npm install  # Install project dependencies defined in package.json\
   build:\
     commands:\
-      - npm run lint\
-      - npm run test\
+      - echo Running lint...\
+      - npm run lint  # If you have linting configured (e.g., ESLint)\
+      - echo Running tests...\
+      - npm run test  # Run tests (adjust if you're using a testing framework like Jest, Mocha, etc.)\
   post_build:\
     commands:\
-      - echo "Build and tests complete"\
+      - echo Build complete\
+      - echo Creating build artifacts...\
+      - mkdir -p output  # Create a directory to store build artifacts\
+      - cp -r * output/  # Copy the application files to the output directory for deployment\
 artifacts:\
   files:\
-    - '**/*'\
-  discard-paths: yes\
+    - '**/*'  # Include all files in the output directory\
+  base-directory: output  # Specify the base directory for the artifacts\
+  discard-paths: yes  # Optionally discard folder structure for your artifacts\
 }
