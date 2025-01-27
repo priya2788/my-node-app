@@ -28,9 +28,9 @@ phases:
     commands:
       - echo Build complete
       - echo Creating build artifacts...
-      - mkdir -p output  # Create a directory to store build artifacts
+      - mkdir -p extracted_files  # Create a directory to store build artifacts
 artifacts:
   files:
     - '**/*'  # Include all files in the output directory
-  base-directory: output  # Specify the base directory for the artifacts
+  base-directory: extracted_files  # Specify the base directory for the artifacts
   discard-paths: yes  # Optionally discard folder structure for your artifacts
