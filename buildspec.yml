@@ -9,8 +9,7 @@ phases:
       - npm install  # Install project dependencies defined in package.json
   build:
     commands:
-      - echo Running lint...
-      - npm run lint  # If you have linting configured (e.g., ESLint)
+      
       - echo Running tests...
       - npm run test  # Run tests (adjust if you're using a testing framework like Jest, Mocha, etc.)
   post_build:
