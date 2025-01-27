@@ -1,5 +1,4 @@
 
-require('dotenv').config();  // Load .env file into process.env
 
 const express = require('express');
 const mysql = require('mysql2');
