@@ -33,7 +33,7 @@ phases:
       - echo Build complete
       - echo Creating build artifacts...
       - mkdir -p extracted_files  # Create a directory to store build artifacts
-       - echo Build completed with version $VERSION
+      - echo Build completed with version $VERSION
       - cat version.txt  # Output version
 artifacts:
   files:
