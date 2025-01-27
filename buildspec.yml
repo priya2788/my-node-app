@@ -38,5 +38,6 @@ phases:
 artifacts:
   files:
     - '**/*'  # Include all files in the output directory
+    - version.txt
   base-directory: extracted_files  # Specify the base directory for the artifacts
   discard-paths: yes  # Optionally discard folder structure for your artifacts
