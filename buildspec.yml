@@ -18,7 +18,7 @@ phases:
       - echo "Unzipping the source artifact..."
       - unzip OmBbU5R.zip -d extracted_files/
       - echo "Build process..."
-      - VERSION=$(date +%Y%m%d%H%M%S)
+      - VERSION=$(date +%Y%m%d%H%M%S)  # This line is now treated as a string
       - echo "Version: $VERSION" > version.txt
       - npm run build
 
