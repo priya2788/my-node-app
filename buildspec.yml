@@ -21,7 +21,6 @@ phases:
       - |
         VERSION=$(date +%Y%m%d%H%M%S)  # Use '|' to handle multi-line scripts properly in YAML
         echo "Version: $$VERSION" > version.txt  # Use $$ to escape the variable correctly
-      - npm run build
 
   post_build:
     commands:
