@@ -14,14 +14,7 @@ const db = mysql.createPool({
   database: process.env.DB_NAME   // RDS database name from environment variable
 });*/
 
-// AWS S3 setup
-AWS.config.update({
-  region: 'ap-south-1', // Set your region
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
 
-const s3 = new AWS.S3();
 
 /*// Test the database connection
 db.getConnection((err, connection) => {
@@ -42,7 +35,14 @@ db.getConnection((err, connection) => {
     res.status(500).send('Error querying the database');
   }
 });*/
+/*// AWS S3 setup
+AWS.config.update({
+  region: 'ap-south-1', // Set your region
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 
+const s3 = new AWS.S3();
 // Route to fetch image from S3
 app.get('/:folder/:filename', async (req, res) => {
   const { folder, filename } = req.params;  // Extract folder and filename from the URL
@@ -66,7 +66,7 @@ app.get('/:folder/:filename', async (req, res) => {
     res.status(500).send('Error fetching the image from S3');
   }
 });
-
+*/ //temp block for deployment testing
 
 /*fetch('https://demo-s3-databucket.s3.ap-south-1.amazonaws.com/1.jpg')
   .then(response => response.blob())
@@ -83,5 +83,5 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`App is listening on port ${port}`);
+  console.log(`testing App is listening on port ${port}`);
 });
