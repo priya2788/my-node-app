@@ -3,39 +3,36 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14  # You can change this to your desired Node.js version
+      nodejs: 14
     commands:
-      - echo Installing dependencies...
-      - npm install  # Install project dependencies defined in package.json
       - echo "Installing dependencies..."
-      # Install unzip if it's not available in the build image
+      - npm install
       - apt-get install -y unzip
+
   build:
     commands:
-      - echo Running tests...
-      - npm run test  # Run tests (adjust if you're using a testing framework like Jest, Mocha, etc.)
+      - echo "Running tests..."
+      - npm run test
       - echo "Downloading source artifact from S3..."
-      # Download the ZIP file from the specified S3 location
       - aws s3 cp s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/OmBbU5R.zip ./OmBbU5R.zip
       - echo "Unzipping the source artifact..."
-      # Unzip the file into the 'extracted_files/' directory
       - unzip OmBbU5R.zip -d extracted_files/
-      
       - echo "Build process..."
-      - VERSION=$(date +%Y%m%d%H%M%S)  # Generate version from timestamp
-      - echo "Version: $VERSION" > version.txt  # Save version to a file
+      - VERSION=$(date +%Y%m%d%H%M%S)
+      - echo "Version: $VERSION" > version.txt
       - npm run build
 
   post_build:
     commands:
-      - echo Build complete
-      - echo Creating build artifacts...
-      - mkdir -p extracted_files  # Create a directory to store build artifacts
-      - echo Build completed with version $VERSION
-      - cat version.txt  # Output version
+      - echo "Build complete"
+      - echo "Creating build artifacts..."
+      - mkdir -p extracted_files
+      - echo "Build completed with version $VERSION"
+      - cat version.txt
+
 artifacts:
   files:
-    - '**/*'  # Include all files in the output directory
+    - '**/*'
     - version.txt
-  base-directory: extracted_files  # Specify the base directory for the artifacts
-  discard-paths: yes  # Optionally discard folder structure for your artifacts
+  base-directory: extracted_files
+  discard-paths: yes
