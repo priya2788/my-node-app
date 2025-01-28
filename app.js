@@ -77,7 +77,9 @@ app.get('/:folder/:filename', async (req, res) => {
 
   })
   .catch(error => console.error('Error fetching image:', error));*/
-
+app.get('/', (req, res) => {
+  res.send('Hello, AWS Elastic Beanstalk!');
+});
 
 // Start the server
 app.listen(port, () => {
