@@ -7,6 +7,10 @@ phases:
   build:
     commands:
       - zip -r myapp.zip .
+      - unzip $FILE_NAME -d extracted_files/
+
 artifacts:
   files:
     - myapp.zip
+  base-directory: extracted_files
+
