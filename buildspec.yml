@@ -2,15 +2,39 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 14
     commands:
+      - echo "Installing dependencies..."
       - npm install
+      - apt-get install -y unzip
+
   build:
     commands:
-      - zip -r myapp.zip .
-      - unzip myapp.zip -d extracted_files/
+      - echo "Running tests..."
+      - npm run test
+      - echo "Downloading source artifact from S3..."
+      - FILE_NAME=$(aws s3 ls s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/ --recursive | sort | tail -n 1 | awk '{print $4}')
+      - echo "Latest file is $FILE_NAME"
+      - aws s3 cp s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/$FILE_NAME ./
+      - echo "Unzipping the source artifact..."
+      - unzip $FILE_NAME -d extracted_files/
+      - echo "Build process..."
+      - |
+        VERSION=$(date +%Y%m%d%H%M%S)  # Use '|' to handle multi-line scripts properly in YAML
+        echo "Version: $$VERSION" > version.txt  # Use $$ to escape the variable correctly
+
+  post_build:
+    commands:
+      - echo "Build complete"
+      - echo "Creating build artifacts..."
+      - mkdir -p extracted_files
+      - echo "Build completed with version $$VERSION"
+      - cat version.txt
 
 artifacts:
   files:
-    - myapp.zip
+    - '**/*'
+    - version.txt
   base-directory: extracted_files
-
+  discard-paths: yes
