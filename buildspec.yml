@@ -16,7 +16,7 @@ phases:
       - echo "Downloading source artifact from S3..."
       - FILE_NAME=$(aws s3 ls s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/ --recursive | sort | tail -n 1 | awk '{print $4}')
       - echo "Latest file is $FILE_NAME"
-      - aws s3 cp s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/$FILE_NAME ./
+      - aws s3 cp s3://codepipeline-ap-south-1-617832984535/$FILE_NAME ./
       - echo "Unzipping the source artifact..."
       - unzip $FILE_NAME -d extracted_files/
       - echo "Build process..."
