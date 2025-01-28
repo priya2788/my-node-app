@@ -11,12 +11,15 @@ phases:
 
   build:
     commands:
+      - zip -r myapp.zip
       - echo "Running tests..."
       - npm run test
       - echo "Downloading source artifact from S3..."
-      - aws s3 cp s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/OmBbU5R.zip ./OmBbU5R.zip
+      - FILE_NAME=$(aws s3 ls s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/ --recursive | sort | tail -n 1 | awk '{print $4}')
+      - echo "Latest file is $FILE_NAME"
+      - aws s3 cp s3://codepipeline-ap-south-1-617832984535/copy-node-app/SourceArti/$FILE_NAME ./
       - echo "Unzipping the source artifact..."
-      - unzip OmBbU5R.zip -d extracted_files/
+      - unzip $FILE_NAME -d extracted_files/
       - echo "Build process..."
       - |
         VERSION=$(date +%Y%m%d%H%M%S)  # Use '|' to handle multi-line scripts properly in YAML
@@ -34,5 +37,6 @@ artifacts:
   files:
     - '**/*'
     - version.txt
+    - myapp.zip
   base-directory: extracted_files
   discard-paths: yes
